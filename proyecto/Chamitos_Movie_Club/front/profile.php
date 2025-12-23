@@ -15,18 +15,7 @@
 
 session_start(); // Inicia o reanuda la sesión del usuario
 ?>
-<?php
-session_start();
 
-// ============ DEPURACIÓN TEMPORAL (QUÍTALA CUANDO FUNCIONE) ============
-echo '<div style="background:#ff4444; color:white; padding:15px; font-weight:bold; margin:10px 0; border-radius:8px;">';
-echo 'DEBUG - Contenido de $_SESSION:<br>';
-echo '<pre>';
-print_r($_SESSION);
-echo '</pre>';
-echo '</div>';
-// =====================================================================
-?>
 <!doctype html>
 <html lang="es">
 <head>
