@@ -47,6 +47,12 @@ form .input-wrapper{
     position: relative;
 }
 
+.captcha-registro{
+    text-align: center;
+    color: orange;
+    margin-bottom: 20px;
+}
+
 form .input-wrapper input{
     padding: 12px 0px 12px 50px;
     margin-bottom: 15px;
