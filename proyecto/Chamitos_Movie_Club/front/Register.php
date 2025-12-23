@@ -24,7 +24,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chamitos Movie Club - Login</title>
+  <title>Chamitos Movie Club - Registro</title>
   <link rel="stylesheet" href="css/estilo.css">
   <script src="https://kit.fontawesome.com/e3c79bde02.js" crossorigin="anonymous"></script>
 </head>
@@ -32,7 +32,7 @@
 <body>
 
   <form method="POST" action="../front/profile.php">
-    <h1>Inicio de Sesion</h1>
+    <h1>Registro</h1>
     <div class="input-wrapper">
       <i class="fa-solid fa-user"></i>
       <input type="text" placeholder="Usuario" required>
