@@ -16,6 +16,36 @@
 
 
 // Pero de momento te llevo al escritorio. Que no es guay. Escritorio es para admins (nosotros, no usuarios)
+/**
+ * Inicio de sesión (Login)
+ * Página de autenticación de usuarios.
+ */
+
+session_start(); // ¡¡MUY IMPORTANTE!! Siempre al principio
+
+// Variable para mensajes de error
+$error = '';
+
+// Procesar el formulario cuando se envíe
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  // Recoger datos del formulario
+  $usuario = trim($_POST['usuario'] ?? '');
+  $contrasena = $_POST['contrasena'] ?? '';
+
+  // ===== VALIDACIÓN TEMPORAL (sin base de datos) =====
+  // Más adelante aquí conectarás con la BD
+  // Por ahora, aceptamos cualquier usuario no vacío con contraseña "1234" (solo para probar)
+  if ($usuario !== '' && $contrasena === '1234') {
+    // ¡Login correcto!
+    $_SESSION['usuario'] = $usuario; // ← Aquí se crea la sesión
+
+    // Redirigir al perfil
+    header("Location: profile.php");
+    exit();
+  } else {
+    $error = 'Usuario o contraseña incorrectos. (Prueba con cualquier usuario y contraseña: 1234)';
+  }
+}
 
 ?>
 <!doctype html>
@@ -46,7 +76,7 @@
       <button type="button" id="btnRegistrarse">Registrarse</button>
       <script>
         document.getElementById('btnRegistrarse').addEventListener('click', function() {
-          window.location.href = 'http://localhost/MI_AREA/proyecto/Chamitos_Movie_Club/front/Register.php'; 
+          window.location.href = 'http://localhost/MI_AREA/proyecto/Chamitos_Movie_Club/front/Register.php';
         });
       </script>
     </div>
