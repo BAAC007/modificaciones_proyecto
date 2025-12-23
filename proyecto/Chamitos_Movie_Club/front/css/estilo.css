@@ -7,7 +7,6 @@
 body {
     background-image: url(imagenes/pelicula.jpg);
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -107,4 +106,8 @@ button:hover {
     text-align: center;
     font-weight: bold;
     border: 1px solid #ffcdd2;
+}
+
+main .perfil{
+    flex-direction: column;
 }
