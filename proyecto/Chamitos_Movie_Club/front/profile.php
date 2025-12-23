@@ -36,7 +36,7 @@ session_start(); // Inicia o reanuda la sesión del usuario
         <h2>Mi perfil</h2>
     </header>
 
-    <main>
+    <main id="perfil">
         <?php
         /**
          * CONTROL DE ACCESO
