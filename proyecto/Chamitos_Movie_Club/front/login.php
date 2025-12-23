@@ -73,7 +73,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="input-wrapper">
       <i class="fa-solid fa-user"></i>
       <input type="text" name="username" placeholder="Usuario" required>
-      value="<?= htmlspecialchars($_POST['username'] ?? '') ?>">
     </div>
 
     <div class="input-wrapper">
@@ -95,11 +94,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   </form>
 
-  <p style="margin-top: 30px; text-align: center; font-size: 0.9em; color: #666;">
+  <!-- style="margin-top: 30px; text-align: center; font-size: 0.9em; color: #666;">
     <strong>Usuarios de prueba:</strong><br>
     oscaradmin, CGallardo, BAvila, jocarsa, lmartinez<br>
-    <strong>Contraseña:</strong> password
-  </p>
+    <strong>Contraseña:</strong> password-->
+  
 
   <footer>
   </footer>
