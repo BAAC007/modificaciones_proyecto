@@ -45,6 +45,10 @@
       <i class="fa-solid fa-lock"></i>
       <input type="password" placeholder="Contraseña" required>
     </div>
+    <div class="captcha-registro">
+        <label for="">¿Eres un robot?</label>
+        <input type="checkbox" name="" id="" required>
+    </div>
     <div class="buttons">
       <button type="submit">Registrarse</button>
       <button type="button" id="btnLogin">Iniciar sesion</button>
