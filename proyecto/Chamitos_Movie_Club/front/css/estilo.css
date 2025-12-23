@@ -107,7 +107,3 @@ button:hover {
     font-weight: bold;
     border: 1px solid #ffcdd2;
 }
-
-main .perfil{
-    flex-direction: column;
-}

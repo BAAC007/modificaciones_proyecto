@@ -23,6 +23,12 @@ session_start(); // Inicia o reanuda la sesión del usuario
     <title>Chamitos Movie Club - Mi Perfil</title>
     <meta name="description" content="Perfil personal del usuario en Chamitos Movie Club">
     <link rel="stylesheet" href="css/estilo.css">
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
 </head>
 
 <body>
@@ -36,7 +42,7 @@ session_start(); // Inicia o reanuda la sesión del usuario
         <h2>Mi perfil</h2>
     </header>
 
-    <main id="perfil">
+    <main>
         <?php
         /**
          * CONTROL DE ACCESO
