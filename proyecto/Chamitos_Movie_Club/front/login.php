@@ -75,8 +75,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
 
-  <form method="POST" action="">
-    <h1>Inicio de Sesion</h1>
+  <form method="POST" action="login.php" class="login-form">
+    <h1>Inicio de Sesión</h1>
+
+    <?php if ($error): ?>
+      <div class="alerta error">
+        <p>⚠️ <?= htmlspecialchars($error) ?></p>
+      </div>
+    <?php endif; ?>
     <div class="input-wrapper">
       <i class="fa-solid fa-user"></i>
       <input type="text" name="username" placeholder="Usuario" required>
@@ -98,6 +104,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </form>
 
   <footer>
+    <p style="text-align:center; margin-top:30px; color:#888; font-size:0.9em;">
+      Chamitos Movie Club © 2025
+    </p>
   </footer>
 
   <?php if ($mensaje): ?>
