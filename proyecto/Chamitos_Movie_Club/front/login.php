@@ -75,12 +75,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
 
-  <form method="POST" action="login.php" class="login-form">
+  <form method="POST" action="login.php">
     <h1>Inicio de Sesión</h1>
 
     <?php if ($error): ?>
-      <div class="alerta error">
-        <p>⚠️ <?= htmlspecialchars($error) ?></p>
+      <div class="error-message">
+        ⚠️ <?= htmlspecialchars($error) ?>
       </div>
     <?php endif; ?>
     <div class="input-wrapper">
