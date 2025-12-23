@@ -104,17 +104,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </form>
 
   <footer>
-    <p style="text-align:center; margin-top:30px; color:#888; font-size:0.9em;">
-      Chamitos Movie Club © 2025
-    </p>
-  </footer>
 
-  <?php if ($mensaje): ?>
-    <div style="background:#fff3cd; padding:15px; margin:15px 0; border-radius:8px; border:1px solid #ffeaa7;">
-      <strong>Depuración:</strong><br>
-      <?= $mensaje ?>
-    </div>
-  <?php endif; ?>
+  </footer>
 
   <p style="margin-top:20px; text-align:center;">
     <strong>Usuarios de prueba:</strong><br>
