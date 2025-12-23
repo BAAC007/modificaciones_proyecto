@@ -1,53 +1,56 @@
 <?php
+session_start();
 
-/**
- * Inicio de sesión (Login)
- * Página de autenticación de usuarios.
- * Permite a un usuario introducir su nombre de usuario y contraseña.
- * Tras un login correcto, el usuario obtiene acceso a funciones personales.
- * Esta página solo muestra el formulario; la validación se procesa en backend.
- * 
- * http://localhost:8080/oscar-bryan-carlos/Chamitos_Movie_Club/front/login.php
- * 
- */
-// Aquí más adelante validaremos contra la base de datos
+// Configuración de la base de datos
+$host = 'localhost';
+$db   = 'proyecto_peliculas';
+$user = 'peliculas_app';
+$pass = 'Peliculas123$';
+$charset = 'utf8mb4';
 
-//Esto arriba es que tenemos que hacer Chamitos 
+$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+$options = [
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    PDO::ATTR_EMULATE_PREPARES   => false,
+];
 
-
-// Pero de momento te llevo al escritorio. Que no es guay. Escritorio es para admins (nosotros, no usuarios)
-/**
- * Inicio de sesión (Login)
- * Página de autenticación de usuarios.
- */
-
-session_start(); // ¡¡MUY IMPORTANTE!! Siempre al principio
-
-// Variable para mensajes de error
 $error = '';
 
-// Procesar el formulario cuando se envíe
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  // Recoger datos del formulario
-  $usuario = trim($_POST['usuario'] ?? '');
-  $contrasena = $_POST['contrasena'] ?? '';
+    $username = trim($_POST['username'] ?? '');
+    $password = $_POST['password'] ?? '';
 
-  // ===== VALIDACIÓN TEMPORAL (sin base de datos) =====
-  // Más adelante aquí conectarás con la BD
-  // Por ahora, aceptamos cualquier usuario no vacío con contraseña "1234" (solo para probar)
-  if ($usuario !== '' && $contrasena === '1234') {
-    // ¡Login correcto!
-    $_SESSION['usuario'] = $usuario; // ← Aquí se crea la sesión
+    if ($username === '' || $password === '') {
+        $error = 'Por favor, completa ambos campos.';
+    } else {
+        try {
+            $pdo = new PDO($dsn, $user, $pass, $options);
 
-    // Redirigir al perfil
-    header("Location: profile.php");
-    exit();
-  } else {
-    $error = 'Usuario o contraseña incorrectos. (Prueba con cualquier usuario y contraseña: 1234)';
-  }
+            // Buscamos al usuario por username
+            $stmt = $pdo->prepare("SELECT id_usuario, username, password FROM usuarios WHERE username = ?");
+            $stmt->execute([$username]);
+            $usuario = $stmt->fetch();
+
+            if ($usuario && password_verify($password, $usuario['password'])) {
+                // ¡Login correcto!
+                $_SESSION['usuario'] = $usuario['username'];
+                $_SESSION['id_usuario'] = $usuario['id_usuario'];
+
+                // Redirigir al perfil
+                header("Location: profile.php");
+                exit();
+            } else {
+                $error = 'Usuario o contraseña incorrectos.';
+            }
+        } catch (PDOException $e) {
+            $error = 'Error de conexión a la base de datos.';
+            // En producción no mostrarías $e->getMessage()
+        }
+    }
 }
-
 ?>
+
 <!doctype html>
 <html lang="es">
 
