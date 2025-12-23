@@ -1,10 +1,10 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-body{
+body {
     background-image: url(imagenes/pelicula.jpg);
     display: flex;
     justify-content: center;
@@ -13,7 +13,7 @@ body{
     font-family: system-ui;
 }
 
-header{
+header {
     display: flex;
     flex-direction: column;
     background-color: rgba(10, 9, 9, 0.815);
@@ -22,7 +22,7 @@ header{
     color: orange;
 }
 
-main{
+main {
     display: flex;
     flex-direction: column;
     background-color: rgba(10, 9, 9, 0.815);
@@ -31,29 +31,29 @@ main{
     color: orange;
 }
 
-form{
+form {
     background-color: rgba(10, 9, 9, 0.815);
     padding: 25px;
     border-radius: 10px;
 }
 
-form h1{
+form h1 {
     text-align: center;
     color: orange;
     margin-bottom: 20px;
 }
 
-form .input-wrapper{
+form .input-wrapper {
     position: relative;
 }
 
-.captcha-registro{
+.captcha-registro {
     text-align: center;
     color: orange;
     margin-bottom: 20px;
 }
 
-form .input-wrapper input{
+form .input-wrapper input {
     padding: 12px 0px 12px 50px;
     margin-bottom: 15px;
     outline: none;
@@ -61,7 +61,7 @@ form .input-wrapper input{
     border-radius: 12px;
 }
 
-form .input-wrapper i{
+form .input-wrapper i {
     position: absolute;
     margin-left: 20px;
     top: 14px;
@@ -70,18 +70,18 @@ form .input-wrapper i{
     transition: .3 ease;
 }
 
-form .input-wrapper:focus-within i{
+form .input-wrapper:focus-within i {
     transform: scale(1.1);
 }
 
-.buttons{
+.buttons {
     display: flex;
     flex-direction: column;
     gap: 15px;
     margin-top: 25px;
 }
 
-button{
+button {
     padding: 10px 0;
     font-size: 15px;
     border-radius: 10px;
@@ -91,8 +91,19 @@ button{
     transition: .3 ease, transform 0.25s ease;
 }
 
-button:hover{
+button:hover {
     transform: translateY(-4px);
     background-color: orange;
     color: white;
+}
+
+.error-message {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #ffcdd2;
 }

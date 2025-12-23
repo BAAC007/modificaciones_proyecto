@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Configuración BD
+// Configuración de la base de datos
 $host = 'localhost';
 $db   = 'proyecto_peliculas';
 $user = 'peliculas_app';
@@ -14,18 +14,14 @@ $options = [
   PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
 ];
 
-$mensaje = '';
+$error = ''; // Esta será la variable que muestre el mensaje de error
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $username = trim($_POST['username'] ?? '');
   $password = $_POST['password'] ?? '';
 
-  // Depuración: mostrar lo que llega
-  $mensaje .= "Usuario recibido: <strong>$username</strong><br>";
-  $mensaje .= "Contraseña recibida: " . ($password ? 'Sí (oculta)' : 'No') . "<br>";
-
   if (empty($username) || empty($password)) {
-    $mensaje .= "<span style='color:red;'>Error: Completa ambos campos.</span>";
+    $error = 'Por favor, completa ambos campos.';
   } else {
     try {
       $pdo = new PDO($dsn, $user, $pass, $options);
@@ -34,29 +30,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $stmt->execute([$username]);
       $usuario = $stmt->fetch();
 
-      if ($usuario) {
-        $mensaje .= "Usuario encontrado en BD: <strong>{$usuario['username']}</strong><br>";
-
-        if (password_verify($password, $usuario['password'])) {
-          // ¡ÉXITO!
-          $_SESSION['usuario'] = $usuario['username'];
-          $_SESSION['id_usuario'] = $usuario['id_usuario'];
-
-          $mensaje .= "<span style='color:green; font-weight:bold;'>¡Login correcto! Redirigiendo...</span>";
-
-          // Pequeño retraso para que veas el mensaje (solo en pruebas)
-          echo $mensaje;
-          echo "<br><br>Redirigiendo en 2 segundos...";
-          header("Refresh: 2; url=profile.php");
-          exit();
-        } else {
-          $mensaje .= "<span style='color:red;'>Contraseña incorrecta.</span>";
-        }
+      if ($usuario && password_verify($password, $usuario['password'])) {
+        // ¡Login correcto!
+        $_SESSION['usuario'] = $usuario['username'];
+        $_SESSION['id_usuario'] = $usuario['id_usuario'];
+        header("Location: profile.php");
+        exit();
       } else {
-        $mensaje .= "<span style='color:red;'>Usuario no encontrado en la base de datos.</span>";
+        $error = 'Usuario o contraseña incorrectos.';
       }
-    } catch (Exception $e) {
-      $mensaje .= "<span style='color:red;'>Error de conexión: " . $e->getMessage() . "</span>";
+    } catch (PDOException $e) {
+      $error = 'Error de conexión. Inténtalo más tarde.';
     }
   }
 }
@@ -79,39 +63,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h1>Inicio de Sesión</h1>
 
     <?php if ($error): ?>
+
       <div class="error-message">
         ⚠️ <?= htmlspecialchars($error) ?>
       </div>
+
     <?php endif; ?>
+
     <div class="input-wrapper">
       <i class="fa-solid fa-user"></i>
       <input type="text" name="username" placeholder="Usuario" required>
       value="<?= htmlspecialchars($_POST['username'] ?? '') ?>">
     </div>
+
     <div class="input-wrapper">
       <i class="fa-solid fa-lock"></i>
       <input type="password" name="password" placeholder="Contraseña" required>
     </div>
+
     <div class="buttons">
       <button type="submit">Iniciar Sesion</button>
       <button type="button" id="btnRegistrarse">Registrarse</button>
+
       <script>
         document.getElementById('btnRegistrarse').addEventListener('click', function() {
           window.location.href = 'http://localhost/MI_AREA/proyecto/Chamitos_Movie_Club/front/Register.php';
         });
       </script>
+
     </div>
+
   </form>
 
-  <footer>
-
-  </footer>
-
-  <p style="margin-top:20px; text-align:center;">
+  <p style="margin-top: 30px; text-align: center; font-size: 0.9em; color: #666;">
     <strong>Usuarios de prueba:</strong><br>
     oscaradmin, CGallardo, BAvila, jocarsa, lmartinez<br>
-    <strong>Contraseña para todos:</strong> password
+    <strong>Contraseña:</strong> password
   </p>
+
+  <footer>
+  </footer>
 
 </body>
 
