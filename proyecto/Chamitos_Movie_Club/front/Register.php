@@ -99,19 +99,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
 
-  <form method="POST" action="../front/profile.php">
+  <form method="POST" action="Register.php">
     <h1>Registro</h1>
+    <?php if ($error): ?>
+      <div class="error">⚠️ <?= htmlspecialchars($error) ?></div>
+    <?php endif; ?>
+
+    <?php if ($success): ?>
+      <div class="success">✅ <?= $success ?> Redirigiendo en 2 segundos...</div>
+    <?php endif; ?>
+
     <div class="input-wrapper">
       <i class="fa-solid fa-user"></i>
-      <input type="text" placeholder="Usuario" required>
+      <input type="text" name="username" placeholder="Usuario" required>
+      value="<?= htmlspecialchars($_POST['username'] ?? '') ?>">
     </div>
     <div class="input-wrapper">
       <i class="fa-solid fa-envelope"></i>
-      <input type="email" placeholder="Email" required>
+      <input type="email" name="email" placeholder="Email" required>
+      value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
     </div>
     <div class="input-wrapper">
       <i class="fa-solid fa-lock"></i>
-      <input type="password" placeholder="Contraseña" required>
+      <input type="password" name="password" placeholder="Contraseña" required>
+    </div>
+    <div class="input-wrapper">
+      <i class="fa-solid fa-lock"></i>
+      <input type="password" name="confirm" placeholder="Confirmar contraseña" required>
     </div>
     <div class="captcha-registro">
       <label for="">¿Eres un robot?</label>
