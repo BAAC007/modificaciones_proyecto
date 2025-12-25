@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
     <?php if ($success): ?>
-      <div class="success">✅ <?= $success ?> Redirigiendo en 2 segundos...</div>
+      <div style="color: orange;" class="success">✅ <?= $success ?> Redirigiendo en 2 segundos...</div>
     <?php endif; ?>
     <div class="input-wrapper">
       <i class="fa-regular fa-address-card"></i>
