@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <form method="POST" action="Register.php">
     <h1>Registro</h1>
     <?php if ($error): ?>
-      <div class="error">⚠️ <?= htmlspecialchars($error) ?></div>
+      <div style="color: orange;" class="error">⚠️ <?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
 
     <?php if ($success): ?>
