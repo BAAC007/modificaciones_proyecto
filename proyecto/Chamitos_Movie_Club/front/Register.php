@@ -112,12 +112,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="input-wrapper">
       <i class="fa-solid fa-user"></i>
       <input type="text" name="username" placeholder="Usuario" required>
-      value="<?= htmlspecialchars($_POST['username'] ?? '') ?>">
+
     </div>
     <div class="input-wrapper">
       <i class="fa-solid fa-envelope"></i>
       <input type="email" name="email" placeholder="Email" required>
-      value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
+
     </div>
     <div class="input-wrapper">
       <i class="fa-solid fa-lock"></i>
