@@ -129,8 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <input type="password" name="confirm" placeholder="Confirmar contraseña" required>
     </div>
     <div class="captcha-registro">
-      <label for="">¿Eres un robot?</label>
-      <input type="checkbox" name="" id="" required>
+      <label><input type="checkbox" name="captcha" required> ¿Eres un robot?</label>
     </div>
     <div class="buttons">
       <button type="submit">Registrarse</button>
