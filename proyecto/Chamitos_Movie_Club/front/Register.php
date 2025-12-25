@@ -17,16 +17,15 @@ $error = '';
 $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $nombre     = trim($_POST['nombre'] ?? '');
+  $apellidos  = trim($_POST['apellidos'] ?? '');
   $username   = trim($_POST['username'] ?? '');
-  $email      = trim($_POST['email'] ?? '');
   $password   = $_POST['password'] ?? '';
   $confirm    = $_POST['confirm'] ?? '';
   $captcha    = isset($_POST['captcha']);
 
-  if (empty($username) || empty($email) || empty($password) || empty($confirm)) {
+  if (empty($nombre) || empty($apellidos) || empty($username) || empty($password) || empty($confirm)) {
     $error = 'Por favor, completa todos los campos.';
-  } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $error = 'El email no es válido.';
   } elseif ($password !== $confirm) {
     $error = 'Las contraseñas no coinciden.';
   } elseif (strlen($password) < 6) {
@@ -42,25 +41,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if ($stmt->fetch()) {
         $error = 'Este nombre de usuario ya está en uso. Elige otro.';
       } else {
-        $stmt = $pdo->prepare("SELECT id_usuario FROM usuarios WHERE email = ?");
-        $stmt->execute([$email]);
-        if ($stmt->fetch()) {
-          $error = 'Este email ya está registrado.';
-        } else {
-          $hash = password_hash($password, PASSWORD_DEFAULT);
+        $hash = password_hash($password, PASSWORD_DEFAULT);
 
-          $sql = "INSERT INTO usuarios (username, password, email) 
-                            VALUES (?, ?, ?)";
-          $stmt = $pdo->prepare($sql);
-          $stmt->execute([$username, $hash, $email]);
+        $sql = "INSERT INTO usuarios (nombre, apellidos, username, password) 
+                            VALUES (?, ?, ?, ?)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$nombre, $apellidos, $username, $hash]);
 
-          $success = '¡Registro exitoso! Bienvenido, ' . htmlspecialchars($username) . '. Redirigiendo...';
+        $success = '¡Registro exitoso! Bienvenido, ' . htmlspecialchars($username) . '. Redirigiendo...';
 
-          $_SESSION['usuario'] = $username;
-          $_SESSION['id_usuario'] = $pdo->lastInsertId();
+        $_SESSION['usuario'] = $username;
+        $_SESSION['id_usuario'] = $pdo->lastInsertId();
 
-          header("Refresh: 2; url=profile.php");
-        }
+        header("Refresh: 2; url=profile.php");
       }
     } catch (PDOException $e) {
       $error = 'Error al conectar con la base de datos. Inténtalo más tarde.';
@@ -107,15 +100,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php if ($success): ?>
       <div class="success">✅ <?= $success ?> Redirigiendo en 2 segundos...</div>
     <?php endif; ?>
+    <div class="input-wrapper">
+      <i class="fa-regular fa-address-card"></i>
+      <input type="text" name="nombre" placeholder="Nombre" required>
+    </div>
+
+    <div class="input-wrapper">
+      <i class="fa-regular fa-address-card"></i>
+      <input type="text" name="apellidos" placeholder="Apellidos" required>
+    </div>
 
     <div class="input-wrapper">
       <i class="fa-solid fa-user"></i>
       <input type="text" name="username" placeholder="Usuario" required>
-
-    </div>
-    <div class="input-wrapper">
-      <i class="fa-solid fa-envelope"></i>
-      <input type="email" name="email" placeholder="Email" required>
 
     </div>
     <div class="input-wrapper">
