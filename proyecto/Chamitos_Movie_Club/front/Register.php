@@ -17,15 +17,13 @@ $error = '';
 $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $nombre     = trim($_POST['nombre'] ?? '');
-  $apellidos  = trim($_POST['apellidos'] ?? '');
   $username   = trim($_POST['username'] ?? '');
   $email      = trim($_POST['email'] ?? '');
   $password   = $_POST['password'] ?? '';
   $confirm    = $_POST['confirm'] ?? '';
   $captcha    = isset($_POST['captcha']);
 
-  if (empty($nombre) || empty($apellidos) || empty($username) || empty($email) || empty($password) || empty($confirm)) {
+  if (empty($username) || empty($email) || empty($password) || empty($confirm)) {
     $error = 'Por favor, completa todos los campos.';
   } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $error = 'El email no es válido.';
@@ -51,10 +49,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
           $hash = password_hash($password, PASSWORD_DEFAULT);
 
-          $sql = "INSERT INTO usuarios (nombre, apellidos, username, password, email) 
-                            VALUES (?, ?, ?, ?, ?)";
+          $sql = "INSERT INTO usuarios (username, password, email) 
+                            VALUES (?, ?, ?)";
           $stmt = $pdo->prepare($sql);
-          $stmt->execute([$nombre, $apellidos, $username, $hash, $email]);
+          $stmt->execute([$username, $hash, $email]);
 
           $success = '¡Registro exitoso! Bienvenido, ' . htmlspecialchars($username) . '. Redirigiendo...';
 
