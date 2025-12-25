@@ -75,7 +75,7 @@ session_start(); // Inicia o reanuda la sesión del usuario
     </main>
 
     <footer>
-        <p>&copy; <?php echo date('Y'); ?> Chamitos Movie Club. Todos los derechos reservados.</p>
+        <p style="color: orange;">&copy; <?php echo date('Y'); ?> Chamitos Movie Club. Todos los derechos reservados.</p>
     </footer>
 </body>
 </html>
